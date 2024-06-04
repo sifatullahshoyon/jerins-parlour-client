@@ -14,6 +14,7 @@ export default {
         'secondary-color': '#FFF8F5',
         'text-color': '#1F1632',
         'text-gray': '#707070',
+        'text-primary': '#666666',
       },
     },
   },

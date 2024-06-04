@@ -1,11 +1,12 @@
 import React from 'react';
 import Title from '../../../components/Title';
+import Header from '../Header';
 
 const Home = () => {
     return (
         <div>
             <Title title="Home" />   
-            {/* <h1 className='text-red-500'>This is Home</h1> */}
+            <Header />
         </div>
     );
 };
