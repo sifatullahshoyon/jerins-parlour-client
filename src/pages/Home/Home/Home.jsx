@@ -3,6 +3,8 @@ import Title from '../../../components/Title';
 import Header from '../Header';
 import Services from '../Services';
 import Professionally from '../Professionally';
+import Testimonials from '../Testimonials/Testimonials';
+
 
 const Home = () => {
     return (
@@ -11,6 +13,7 @@ const Home = () => {
             <Header />
             <Services />
             <Professionally />
+            <Testimonials />
         </div>
     );
 };
