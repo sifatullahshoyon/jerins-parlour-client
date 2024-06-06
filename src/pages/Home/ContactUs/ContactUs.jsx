@@ -56,7 +56,7 @@ const ContactUs = () => {
               </div>
             </div>
           </form>
-          <div className="text-center">
+          <div className="text-center mb-10">
             <PrimaryBtn props="Send Message" className="" width="w-[172px]" />
           </div>
         </div>
