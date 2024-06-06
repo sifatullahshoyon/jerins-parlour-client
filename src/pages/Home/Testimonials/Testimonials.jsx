@@ -9,7 +9,6 @@ import client1 from "../../../assets/images/client-1.png";
 import client2 from "../../../assets/images/client-2.png";
 import client3 from "../../../assets/images/client-3.png";
 import ReactStars from "react-rating-stars-component";
-import { render } from "react-dom";
 
 const Testimonials = () => {
   const ratingChanged = (newRating) => {
@@ -29,8 +28,8 @@ const Testimonials = () => {
           modules={[Pagination]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <div className="flex justify-around flex-wrap">
+          <SwiperSlide className="pb-8">
+            <div className="md:flex justify-around flex-wrap">
               {/* Review 1 */}
               <div className="flex flex-col justify-center">
                 <div className="flex justify-center items-center gap-4">

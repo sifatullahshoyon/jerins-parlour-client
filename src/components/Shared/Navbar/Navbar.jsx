@@ -61,7 +61,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/"
+                to="/contact-us"
                 className={({ isActive }) => {
                   return isActive ? "active" : "default";
                 }}
@@ -132,7 +132,7 @@ const Navbar = () => {
                 </li>
                 <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
                   <NavLink
-                    to="/"
+                    to="/contact-us"
                     className={({ isActive }) => {
                       return isActive ? "active" : "default";
                     }}
