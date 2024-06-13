@@ -15,6 +15,7 @@ export default {
         'text-color': '#1F1632',
         'text-gray': '#707070',
         'text-primary': '#666666',
+        'text-dark' : '#000000'
       },
     },
   },

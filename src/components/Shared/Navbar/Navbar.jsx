@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../../../assets/images/logo/logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import PrimaryBtn from "../../Button/PrimaryBtn";
 import Container from "../Container";
 
 const Navbar = () => {
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
+  const location = useLocation();
+
+  const isNavbar = location?.pathname?.includes("/login")
 
   useEffect(() => {
     const closeDropDown = (e) => {
@@ -22,11 +25,11 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <div className="fixed z-10 w-full">
+    <div className={`sticky top-0 ${isNavbar ? 'bg-transparent' : 'bg-secondary-color'} w-full`}>
       <Container>
-        <nav className="flex  items-center justify-between  px-4 pt-10 pb-2 text-white mb-24">
+        <nav className="flex  items-center justify-between  px-4 pt-10 pb-2 text-white">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110 pr-5">
-            <img src={logo} alt="" />
+            <img src={logo} alt="logo" />
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
             <li>
@@ -70,7 +73,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/">
+              <NavLink to="/login">
                 <PrimaryBtn props="Login" width="w-[134px]" />
               </NavLink>
             </li>
@@ -141,7 +144,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
-                  <NavLink to="/">
+                  <NavLink to="/login">
                     <PrimaryBtn props="Login" width="w-[134px]" />
                   </NavLink>
                 </li>

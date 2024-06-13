@@ -56,12 +56,10 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"
                     color="#FFAC0C"
-                    hoverColor={false}
                     edit={false}
                     classNames="mx-auto"
                   />
@@ -93,7 +91,6 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"
@@ -130,7 +127,6 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"
@@ -171,7 +167,6 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"
@@ -208,7 +203,6 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"
@@ -245,7 +239,6 @@ const Testimonials = () => {
                     onChange={ratingChanged}
                     size={24}
                     isHalf={true}
-                    filledIcon={true}
                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#ffd700"

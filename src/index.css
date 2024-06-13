@@ -2,18 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.active{
-    color: #474747;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
+.active {
+  color: #474747;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
 }
 
-.default{
-    color: #474747;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: "Poppins", sans-serif;
+.default {
+  color: #474747;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
 }
 
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
