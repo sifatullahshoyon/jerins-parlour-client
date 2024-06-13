@@ -9,7 +9,7 @@ const Navbar = () => {
   const dropDownMenuRef = useRef();
   const location = useLocation();
 
-  const isNavbar = location?.pathname?.includes("/login")
+  const isNavbar = location?.pathname?.includes("/login") || location?.pathname?.includes("/registration");
 
   useEffect(() => {
     const closeDropDown = (e) => {
