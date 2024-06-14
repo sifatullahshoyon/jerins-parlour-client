@@ -6,7 +6,7 @@ const SocialLogin = () => {
     <div>
       {/* Facebook Btn */}
       <div className="mb-4">
-        <button class="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
+        <button className="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -31,7 +31,7 @@ const SocialLogin = () => {
       </div>
       {/* Google Btn */}
       <div>
-        <button class="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
+        <button className="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
           <FcGoogle className="text-3xl" />
           <p className="text-text-dark text-base text-balance font-medium font-Poppins">
             Continue with Google

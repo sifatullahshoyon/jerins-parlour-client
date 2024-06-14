@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../../../components/Title";
 import { useForm } from "react-hook-form";
 import PrimaryBtn from "../../../components/Button/PrimaryBtn";
 import SocialLogin from "../../../components/Shared/SocialLogin/SocialLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const Registration = () => {
   const {
@@ -13,9 +14,40 @@ const Registration = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const {createUser, updateUserProfile} = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-  console.log(register());
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // console.log(data);
+    const firstName = data?.firstName;
+    const lastName = data?.lastName;
+    const fullName = firstName + " " + lastName;
+    const email = data?.email;
+    const password = data?.password;
+    const passwordConfirmation = data?.confirmPassword;
+    console.log( email , password , passwordConfirmation , fullName);
+
+    try {
+      createUser(email , password)
+      .then((result) => {
+        const loggedInUser = result?.user;
+        console.log( loggedInUser);
+
+        updateUserProfile(fullName)
+        .then(() => {
+          // user create successfully.
+        })
+        .catch((error) => {})
+
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      
+    } catch (error) {
+      console.error(error);
+    }
+
+  };
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -74,7 +106,7 @@ const Registration = () => {
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Confirm Password"
                 className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-                {...register("password")}
+                {...register("confirmPassword")}
               />
               <span
                 onClick={handleShowPassword}
