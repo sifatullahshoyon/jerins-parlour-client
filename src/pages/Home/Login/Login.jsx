@@ -1,21 +1,64 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../../../components/Title";
 import { useForm } from "react-hook-form";
 import PrimaryBtn from "../../../components/Button/PrimaryBtn";
 import SocialLogin from "../../../components/Shared/SocialLogin/SocialLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProviders";
+import { Bounce, toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  console.log(register());
-  const onSubmit = (data) => console.log(data);
+  const { signIn, loading, setLoading } = useContext(AuthContext);
+  console.log("loading =>", loading);
+  const onSubmit = (data) => {
+    const email = data?.email;
+    const password = data?.password;
+    try {
+      signIn(email, password)
+        .then((result) => {
+          reset();
+          setLoading(false);
+          const loggedInUser = result?.user;
+          toast.success("Sign In Successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        })
+        .catch((error) => {
+          setLoading(false);
+          const errorMessage = error.message;
+          toast.error(errorMessage, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -31,8 +74,9 @@ const Login = () => {
               type="email"
               placeholder="Email"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("email")}
+              {...register("email", { required: true })}
             />
+            <p className="text-rose-600">{errors.email?.message}</p>
           </div>
           <div className="space-y-2 text-sm">
             <div className="relative flex flex-row items-center">
@@ -40,8 +84,9 @@ const Login = () => {
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="password"
                 className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-                {...register("password")}
+                {...register("password", { required: true })}
               />
+              <p className="text-rose-600">{errors.firstName?.message}</p>
               <span
                 onClick={handleShowPassword}
                 className="absolute right-2 cursor-pointer"
@@ -59,9 +104,14 @@ const Login = () => {
           {/* Sign in Button */}
           <PrimaryBtn
             width="w-full"
-            props="Log In"
-            className="text-lg  p-[10px] block w-full  text-white "
-          ></PrimaryBtn>
+            className="text-lg p-[10px] block w-full text-white"
+          >
+            {loading ? (
+              <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+            ) : (
+              "Log In"
+            )}
+          </PrimaryBtn>
         </form>
         <div className="flex items-center pt-4 space-x-2">
           <div className="flex-1 h-px bg-gray-300"></div>

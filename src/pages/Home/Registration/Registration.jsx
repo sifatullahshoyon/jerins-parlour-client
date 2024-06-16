@@ -6,47 +6,77 @@ import SocialLogin from "../../../components/Shared/SocialLogin/SocialLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
+import { Bounce, toast } from "react-toastify";
 
 const Registration = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset ,
     formState: { errors },
   } = useForm();
-  const {createUser, updateUserProfile} = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = (data) => {
-    // console.log(data);
     const firstName = data?.firstName;
     const lastName = data?.lastName;
     const fullName = firstName + " " + lastName;
     const email = data?.email;
     const password = data?.password;
     const passwordConfirmation = data?.confirmPassword;
-    console.log( email , password , passwordConfirmation , fullName);
 
     try {
-      createUser(email , password)
-      .then((result) => {
-        const loggedInUser = result?.user;
-        console.log( loggedInUser);
-
-        updateUserProfile(fullName)
-        .then(() => {
-          // user create successfully.
+      createUser(email, password)
+        .then((result) => {
+          const loggedInUser = result?.user;
+          
+          updateUserProfile(fullName)
+            .then(() => {
+              reset();
+              toast.success("User Create Successfully", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+            })
+            .catch((error) => {
+              const errorMessage = error.message;
+              toast.error(errorMessage, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
+            });
         })
-        .catch((error) => {})
-
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      
+        .catch((error) => {
+          const errorMessage = error.message;
+          toast.error(errorMessage, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        });
     } catch (error) {
       console.error(error);
     }
-
   };
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -65,24 +95,27 @@ const Registration = () => {
               type="text"
               placeholder="First Name"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("firstName")}
-            />
+              {...register("firstName" , { required: true })}
+              />
+              <p className="text-rose-600">{errors.firstName?.message}</p>
           </div>
           <div className="space-y-2 text-sm">
             <input
               type="text"
               placeholder="Last Name"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("lastName")}
+              {...register("lastName" , { required: true })}
             />
+            <p className="text-rose-600">{errors.lastName?.message}</p>
           </div>
           <div className="space-y-2 text-sm">
             <input
               type="email"
               placeholder="Email"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("email")}
+              {...register("email", { required: true })}
             />
+            <p className="text-rose-600">{errors.email?.message}</p>
           </div>
           <div className="space-y-2 text-sm">
             <div className="relative flex flex-row items-center">
@@ -90,8 +123,9 @@ const Registration = () => {
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Password"
                 className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-                {...register("password")}
+                {...register("password", { required: true })}
               />
+              <p className="text-rose-600">{errors.password?.message}</p>
               <span
                 onClick={handleShowPassword}
                 className="absolute right-2 cursor-pointer"
@@ -106,8 +140,9 @@ const Registration = () => {
                 type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Confirm Password"
                 className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-                {...register("confirmPassword")}
+                {...register("confirmPassword", { required: true })}
               />
+              <p className="text-rose-600">{errors.confirmPassword?.message}</p>
               <span
                 onClick={handleShowPassword}
                 className="absolute right-2 cursor-pointer"

@@ -52,7 +52,7 @@ const Services = () => {
           </div>
         </div>
         <div className="text-center pt-10">
-          <PrimaryBtn props="Explore more" width="w-[170px]" />
+          <PrimaryBtn width="w-[170px]">Explore more</PrimaryBtn>
         </div>
       </Container>
     </section>

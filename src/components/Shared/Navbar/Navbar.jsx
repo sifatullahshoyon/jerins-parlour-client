@@ -1,15 +1,43 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import logo from "../../../assets/images/logo/logo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import PrimaryBtn from "../../Button/PrimaryBtn";
 import Container from "../Container";
+import { AuthContext } from "../../../providers/AuthProviders";
+import { Bounce, toast } from "react-toastify";
 
 const Navbar = () => {
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
   const location = useLocation();
+  const {logOut , user} = useContext(AuthContext);
 
   const isNavbar = location?.pathname?.includes("/login") || location?.pathname?.includes("/registration");
+
+  const handleLogOut = () => {
+    try {
+      logOut()
+      .then(() => {
+        // Log out successfully.
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+                toast.error(errorMessage, {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Bounce,
+                });
+      })
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   useEffect(() => {
     const closeDropDown = (e) => {
@@ -25,7 +53,7 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <div className={`sticky top-0 ${isNavbar ? 'bg-transparent' : 'bg-secondary-color'} w-full`}>
+    <div className={`sticky top-0 ${isNavbar ? 'bg-white' : 'bg-secondary-color'} w-full`}>
       <Container>
         <nav className="flex  items-center justify-between  px-4 pt-10 pb-2 text-white">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110 pr-5">
@@ -72,10 +100,30 @@ const Navbar = () => {
                 Contact Us
               </NavLink>
             </li>
-            <li>
+            {/* {user && 
+                  <li className="cursor-pointer  px-6 py-2 text-whit ">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => {
+                      return isActive ? "active" : "default";
+                    }}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                } */}
+              <li>
+             {user ? (
+              <>
+                    <PrimaryBtn onclick={handleLogOut} width="w-[134px]">
+                    Log Out
+                    </PrimaryBtn>
+                  </>
+             ) : (
               <NavLink to="/login">
-                <PrimaryBtn props="Login" width="w-[134px]" />
-              </NavLink>
+                    <PrimaryBtn  width="w-[134px]"> Log In</PrimaryBtn>
+                  </NavLink>
+             )}
             </li>
           </ul>
           <div
@@ -143,11 +191,31 @@ const Navbar = () => {
                     Contact Us
                   </NavLink>
                 </li>
-                <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
-                  <NavLink to="/login">
-                    <PrimaryBtn props="Login" width="w-[134px]" />
+                {/* {user && (
+                  <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => {
+                      return isActive ? "active" : "default";
+                    }}
+                  >
+                    Dashboard
                   </NavLink>
                 </li>
+                )} */}
+                <li>
+             {user ? (
+              <>
+                    <PrimaryBtn onclick={handleLogOut}  width="w-[134px]">
+                      Log Out
+                    </PrimaryBtn>
+                  </>
+             ) : (
+              <NavLink to="/login">
+                    <PrimaryBtn  width="w-[134px]">Log In</PrimaryBtn>
+                  </NavLink>
+             )}
+            </li>
               </ul>
             )}
           </div>

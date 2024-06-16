@@ -16,10 +16,9 @@ const Header = () => {
               Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit.
               Purus commodo ipsum duis <br /> laoreet maecenas. Feugiat{" "}
             </p>
-            <PrimaryBtn
-              props="Get an Appoin tment"
-              width="lg:w-[230px] md:w-[200px] sm:w-[150px]"
-            />
+            <PrimaryBtn width="lg:w-[230px] md:w-[200px] sm:w-[150px]">
+              Get an Appoin tment
+            </PrimaryBtn>
           </div>
           <div className="lg:pr-80">
             <img src={modelPic} alt="model picture" className="object-cover" />

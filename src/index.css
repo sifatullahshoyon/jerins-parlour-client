@@ -23,7 +23,8 @@
   transform: translate(-50%, -50%);
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #000000;
   font-weight: 500;
 }

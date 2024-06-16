@@ -1,12 +1,12 @@
 import React from "react";
 
-const PrimaryBtn = ({ props, width }) => {
+const PrimaryBtn = ({ children, width }) => {
   return (
     <div>
       <button
-        className={`${width} h-11 rounded bg-primary-color text-white text-base font-Poppins font-medium text-balance p-2`}
+        className={`${width} h-11 rounded bg-primary-color text-white text-base font-Poppins font-medium text-balance p-2 cursor-pointer`}
       >
-        {props}
+        {children}
       </button>
     </div>
   );
