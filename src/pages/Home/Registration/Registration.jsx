@@ -7,15 +7,17 @@ import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Registration = () => {
   const {
     register,
     handleSubmit,
-    reset ,
+    reset,
     formState: { errors },
   } = useForm();
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, loading, setLoading } =
+    useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = (data) => {
     const firstName = data?.firstName;
@@ -29,10 +31,11 @@ const Registration = () => {
       createUser(email, password)
         .then((result) => {
           const loggedInUser = result?.user;
-          
+
           updateUserProfile(fullName)
             .then(() => {
               reset();
+              setLoading(false);
               toast.success("User Create Successfully", {
                 position: "top-center",
                 autoClose: 5000,
@@ -95,16 +98,16 @@ const Registration = () => {
               type="text"
               placeholder="First Name"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("firstName" , { required: true })}
-              />
-              <p className="text-rose-600">{errors.firstName?.message}</p>
+              {...register("firstName", { required: true })}
+            />
+            <p className="text-rose-600">{errors.firstName?.message}</p>
           </div>
           <div className="space-y-2 text-sm">
             <input
               type="text"
               placeholder="Last Name"
               className="w-full px-4 py-3 rounded-md border-b-[#ABABAB] border-b"
-              {...register("lastName" , { required: true })}
+              {...register("lastName", { required: true })}
             />
             <p className="text-rose-600">{errors.lastName?.message}</p>
           </div>
@@ -160,9 +163,14 @@ const Registration = () => {
           {/* Sign in Button */}
           <PrimaryBtn
             width="w-full"
-            props="Create an account"
-            className="text-lg  p-[10px] block w-full  text-white "
-          ></PrimaryBtn>
+            className="text-lg p-[10px] block w-full text-white"
+          >
+            {loading ? (
+              <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+            ) : (
+              "Create an account"
+            )}
+          </PrimaryBtn>
         </form>
         <div className="flex items-center pt-4 space-x-2">
           <div className="flex-1 h-px bg-gray-300"></div>

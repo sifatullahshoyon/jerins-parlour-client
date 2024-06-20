@@ -6,27 +6,27 @@ import Login from "../pages/Home/Login/Login";
 import Registration from "../pages/Home/Registration/Registration";
 
 export const router = createBrowserRouter([
-    {
-        path : '/',
-        element : <MainLayout />,
-        errorElement : 'error',
-        children : [
-            {
-                path : '/',
-                element : <Home />,
-            },
-            {
-                path : '/contact-us',
-                element : <ContactUs />,
-            },
-            {
-                path : '/login',
-                element : <Login />,
-            },
-            {
-                path : '/registration',
-                element : <Registration />,
-            },
-        ]
-    }
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: "error",
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
+      },
+    ],
+  },
 ]);
