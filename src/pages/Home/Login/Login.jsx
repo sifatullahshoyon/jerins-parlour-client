@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import PrimaryBtn from "../../../components/Button/PrimaryBtn";
 import SocialLogin from "../../../components/Shared/SocialLogin/SocialLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
@@ -18,7 +18,11 @@ const Login = () => {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const { signIn, loading, setLoading } = useContext(AuthContext);
-  console.log("loading =>", loading);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
+
   const onSubmit = (data) => {
     const email = data?.email;
     const password = data?.password;
@@ -39,6 +43,7 @@ const Login = () => {
             theme: "light",
             transition: Bounce,
           });
+          navigate(from, { replace: true });
         })
         .catch((error) => {
           setLoading(false);
