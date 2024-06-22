@@ -9,8 +9,22 @@
   font-family: "Poppins", sans-serif;
 }
 
+.dashboard-active {
+  color: #f63e7b;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+
 .default {
   color: #474747;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.dashboard-default {
+  color: #878787;
   font-size: 14px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;

@@ -6,6 +6,10 @@ import Login from "../pages/Home/Login/Login";
 import Registration from "../pages/Home/Registration/Registration";
 import Test from "../components/Test";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Dashboard from "../layouts/Dashboard";
+import Book from "../pages/Dashboard/User/Book/Book";
+import BookingList from "../pages/Dashboard/User/BookingList/BookingList";
+import Review from "../pages/Dashboard/User/Review/Review";
 
 export const router = createBrowserRouter([
   {
@@ -30,12 +34,34 @@ export const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "dashboard",
-        element: <Registration />,
+        path: "test",
+        element: (
+          <PrivateRoute>
+            <Test />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/book",
+        element: <Book />,
       },
       {
-        path: "test",
-        element: <PrivateRoute><Test /></PrivateRoute>,
+        path: "/dashboard/bookingList",
+        element: <BookingList />,
+      },
+      {
+        path: "/dashboard/review",
+        element: <Review />,
       },
     ],
   },

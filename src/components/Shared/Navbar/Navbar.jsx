@@ -114,7 +114,7 @@ const Navbar = () => {
             {user && (
               <li className="cursor-pointer  px-6 py-2 text-whit ">
                 <NavLink
-                  to="/dashboard"
+                  to="/dashboard/book"
                   className={({ isActive }) => {
                     return isActive ? "active" : "default";
                   }}
@@ -206,7 +206,7 @@ const Navbar = () => {
                 {user && (
                   <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
                     <NavLink
-                      to="/dashboard"
+                      to="/dashboard/book"
                       className={({ isActive }) => {
                         return isActive ? "active" : "default";
                       }}
