@@ -6,12 +6,9 @@ const Dashboard = () => {
   return (
     <div className="flex">
       <Drawer />
-      <div className="flex-1">
+      <div className="flex-1 sm:mt-8 lg:mt-0">
         <Outlet />
       </div>
-      {/* <div className="border-black border-2 w-full">
-        <p>Lorem ipsum dolor sit amet.</p>
-      </div> */}
     </div>
   );
 };

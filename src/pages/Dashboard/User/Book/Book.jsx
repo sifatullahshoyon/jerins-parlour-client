@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../providers/AuthProviders';
+import Title from '../../../../components/Title';
 
 const Book = () => {
     const {user} = useContext(AuthContext);
     return (
         <div>
+            <Title title='Book'/>
             <div className='flex flex-row flex-wrap justify-between items-center p-4'>
                 <p className='font-Poppins font-semibold text-xl text-text-dark'>Book</p>
                 <p className='font-Poppins font-semibold text-xl text-text-dark'>{user?.displayName}</p>

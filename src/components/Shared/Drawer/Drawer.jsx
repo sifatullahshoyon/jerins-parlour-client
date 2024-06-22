@@ -18,7 +18,7 @@ const Drawer = () => {
     <div className="flex">
       <button
         onClick={toggleDrawer}
-        className="p-2 bg-blue-500 text-white fixed z-50 lg:hidden"
+        className="p-2 bg-primary-color text-white fixed z-50 lg:hidden"
       >
         {isOpen ? <FaXmark /> : <IoMdMenu />}
       </button>
@@ -41,9 +41,12 @@ const Drawer = () => {
               }}
             >
               <div className="flex gap-2 items-center pl-5">
-                <FaShoppingCart  className={({ isActive }) => {
-                return isActive ? "dashboard-active" : "dashboard-default";
-              }} /> Book
+                <FaShoppingCart
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />{" "}
+                Book
               </div>
             </NavLink>
           </li>
@@ -55,9 +58,12 @@ const Drawer = () => {
               }}
             >
               <div className="flex gap-2 items-center pl-5">
-                <MdLibraryBooks className={({ isActive }) => {
-                return isActive ? "dashboard-active" : "dashboard-default";
-              }} /> Booking List
+                <MdLibraryBooks
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />{" "}
+                Booking List
               </div>
             </NavLink>
           </li>
@@ -69,9 +75,12 @@ const Drawer = () => {
               }}
             >
               <div className="flex gap-2 items-center pl-5">
-                <BiCommentDots className={({ isActive }) => {
-                return isActive ? "dashboard-active" : "dashboard-default";
-              }} /> Review
+                <BiCommentDots
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />{" "}
+                Review
               </div>
             </NavLink>
           </li>
