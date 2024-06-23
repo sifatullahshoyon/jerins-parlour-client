@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Title from '../../../../components/Title';
 import { AuthContext } from '../../../../providers/AuthProviders';
+import PrimaryBtn from '../../../../components/Button/PrimaryBtn';
 
 const Review = () => {
     const {user} = useContext(AuthContext);
@@ -12,9 +13,18 @@ const Review = () => {
             <p className='font-Poppins font-semibold text-xl text-text-dark'>{user?.displayName}</p>
         </div>
         <div className='h-screen bg-[#F4F7FC] w-full p-5'>
-            <form action="">
+            <form action="" className='mt-10'>
                 <div>
-                <input className="rounded-lg border border-[#1B8EF8] bg-transparent px-4 py-2 text-[#1B8EF8] focus:outline-none" type="text" />
+                <input className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none" type="text" placeholder='Your Name' required />
+                </div>
+                <div className='my-4'>
+                <input className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none" type="text" placeholder='Company Name ,  Designation' required />
+                </div>
+                <div>
+                    <textarea className="rounded-lg bg-white h-28 sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none resize-none" type="text" placeholder='Description' required></textarea>
+                </div>
+                <div className='my-5'>
+                    <PrimaryBtn width="w-[170px] ">Submit</PrimaryBtn>
                 </div>
             </form>
         </div>

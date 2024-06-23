@@ -1,61 +1,33 @@
 import React from "react";
-import Container from "../../components/Shared/Container";
-import icon1 from "../../assets/images/icon/icon-1.png";
-import icon2 from "../../assets/images/icon/icon-2.png";
-import icon3 from "../../assets/images/icon/icon-3.png";
-import PrimaryBtn from "../../components/Button/PrimaryBtn";
 
-const Services = () => {
+const Services = ({ service, index }) => {
+  const { _id, heading, img_link, price, description } = service;
+
+  // Determine the CSS classes to apply
+  const cardClasses = `w-[370px] flex flex-col justify-center items-center font-Poppins py-5 mx-auto ${
+    index === 1 ? "shadow-lg" : ""
+  } hover:shadow-lg relative transition-shadow duration-300 ease-in-out group`;
+
+  console.log("🚀 ~ Services ~ service: 9", service);
+
   return (
-    <section className="py-20">
-      <Container>
-        <h1 className="text-center font-Poppins font-bold text-3xl pt-10 py-20 text-balance text-text-color">
-          Our Awesome <span className="text-primary-color">Services</span>
-        </h1>
-        <div className="md:flex md:flex-row justify-center gap-20 space-y-4 flex-wrap">
-          <div className="w-[370px] flex flex-col justify-center items-center font-Poppins py-5 mx-auto">
-            <img src={icon1} alt="services icon" />
-            <h2 className="text-xl text-text-color font-semibold py-2">
-              Hair Color & Styling
-            </h2>
-            <h6 className="text-primary-color text-xl font-medium pb-3">
-              $199
-            </h6>
-            <p className="w-72 leading-7 text-center font-light text-base">
-              Amazing flyers, social media posts and brand representations that
-              would ma ke your brand stand out.
-            </p>
-          </div>
-          <div className="w-[370px] flex flex-col justify-center items-center font-Poppins shadow-xl py-5 rounded mx-auto">
-            <img src={icon2} alt="services icon" />
-            <h2 className="text-xl text-text-color font-semibold py-2">
-              Anti Age Face Treatment
-            </h2>
-            <h6 className="text-primary-color text-xl font-medium pb-3">$99</h6>
-            <p className="w-72 leading-7 text-center font-light text-base">
-              We craft stunning and amazing web UI, using a well drrafted UX to
-              fit your product.
-            </p>
-          </div>
-          <div className="w-[370px] flex flex-col justify-center items-center font-Poppins py-5 mx-auto">
-            <img src={icon3} alt="services icon" />
-            <h2 className="text-xl text-text-color font-semibold py-2">
-              Skin Care Treatment
-            </h2>
-            <h6 className="text-primary-color text-xl font-medium pb-3">
-              $299
-            </h6>
-            <p className="w-72 leading-7 text-center font-light text-base">
-              With well written codes, we build amazing apps for all platforms,
-              mobile and web apps in general.
-            </p>
-          </div>
-        </div>
-        <div className="text-center pt-10">
-          <PrimaryBtn width="w-[170px]">Explore more</PrimaryBtn>
-        </div>
-      </Container>
-    </section>
+    <div className={cardClasses}>
+      <img src={img_link ? img_link : "Img Not Found"} alt="services icon" />
+      <h2 className="text-xl text-text-color font-semibold py-2">
+        {heading ? heading : "Data Not Found"}
+      </h2>
+      <h6 className="text-primary-color text-xl font-medium pb-3">
+        ${price ? price : "Data Not Found"}
+      </h6>
+      <p className="w-72 leading-7 text-center font-light text-base">
+        {description ? description : "Data Not Found"}
+      </p>
+      <div className="group-hover:mb-2 group-hover:mt-10 group-hover:duration-100">
+        <button className="absolute bottom-4 right-32 bg-blue-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity group-hover:duration-500 duration-300 ease-in-out">
+          Add to Cart
+        </button>
+      </div>
+    </div>
   );
 };
 
