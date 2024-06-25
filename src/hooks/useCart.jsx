@@ -1,25 +1,29 @@
-import React, { useContext } from 'react';
-import Loader from '../components/Shared/Loader/Loader';
-import useAxiosSecure from './useAxiosSecure';
-import { AuthContext } from '../providers/AuthProviders';
-
+import { useContext } from "react";
+import useAxiosSecure from "./useAxiosSecure";
+import { AuthContext } from "../providers/AuthProviders";
+import { useQuery } from "@tanstack/react-query";
 
 const useCart = () => {
-    const axiosSecure = useAxiosSecure();
-    const {user} = useContext(AuthContext);
-    const { isPending, error, data : cart = [] } = useQuery({
-        queryKey: ['cart' , user?.email],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/carts?email=${user?.email}`);
-            return res.data;
-          },
-      })
-    
-      if (isPending) return <Loader />;
-    
-      if (error) return console.error(error.message || error);
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
 
-    return [cart];
+  const {
+    isLoading,
+    error,
+    data: cart = [],
+  } = useQuery({
+    queryKey: ["cart", user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const res = await axiosSecure.get(`/carts?email=${user?.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email, // Only run query if user email is available
+  });
+
+  if (error) return console.error(error.message || error);
+
+  return { isLoading, error, cart };
 };
 
 export default useCart;

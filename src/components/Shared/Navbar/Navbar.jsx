@@ -10,7 +10,6 @@ const Navbar = () => {
   const dropDownMenuRef = useRef();
   const location = useLocation();
   const { logOut, user } = useContext(AuthContext);
-
   const isNavbar =
     location?.pathname?.includes("/login") ||
     location?.pathname?.includes("/registration");
@@ -73,7 +72,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/"
+                to="/our-portfolio"
                 className={({ isActive }) => {
                   return isActive ? "active" : "default";
                 }}
@@ -83,7 +82,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/"
+                to="/our-tem"
                 className={({ isActive }) => {
                   return isActive ? "active" : "default";
                 }}
@@ -138,6 +137,7 @@ const Navbar = () => {
               )}
             </li>
           </ul>
+       {/* Mobile */}
           <div
             ref={dropDownMenuRef}
             onClick={() => setDropDownState(!dropDownState)}
