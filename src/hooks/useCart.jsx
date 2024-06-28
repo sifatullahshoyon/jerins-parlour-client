@@ -10,6 +10,7 @@ const useCart = () => {
   const {
     isLoading,
     error,
+    refetch,
     data: cart = [],
   } = useQuery({
     queryKey: ["cart", user?.email],
@@ -23,7 +24,8 @@ const useCart = () => {
 
   if (error) return console.error(error.message || error);
 
-  return { isLoading, error, cart };
+  // return { isLoading, error, cart };
+  return [isLoading, error, refetch, cart];
 };
 
 export default useCart;

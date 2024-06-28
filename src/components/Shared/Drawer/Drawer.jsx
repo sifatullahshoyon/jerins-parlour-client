@@ -79,7 +79,7 @@ const Drawer = () => {
                   className={({ isActive }) => {
                     return isActive ? "dashboard-active" : "dashboard-default";
                   }}
-                />{" "}
+                />
                 Review
               </div>
             </NavLink>
