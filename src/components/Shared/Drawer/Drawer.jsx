@@ -6,13 +6,17 @@ import { Link, NavLink } from "react-router-dom";
 import { MdLibraryBooks } from "react-icons/md";
 import { BiCommentDots } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
+import { LiaVectorSquareSolid } from "react-icons/lia";
+import { RiAdminFill } from "react-icons/ri";
+import { TbBrowserPlus } from "react-icons/tb";
+import { CiBoxList } from "react-icons/ci";
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   // TODO: get isAdmin value from the database
   const isAdmin = true;
 
-  
+
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
@@ -36,7 +40,79 @@ const Drawer = () => {
           <img src={logo} alt="logo" className="mb-12" />
         </Link>
         <ul>
-          <li className="mb-2">
+          {isAdmin ?
+           <>
+           <li className="mb-4">
+            <NavLink
+              to="/dashboard/orderList"
+              className={({ isActive }) => {
+                return isActive ? "dashboard-active" : "dashboard-default";
+              }}
+            >
+              <div className="flex gap-2 items-center pl-5">
+                <CiBoxList
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />{" "}
+                Order List
+              </div>
+            </NavLink>
+          </li>
+          <li className="mb-4">
+            <NavLink
+              to="/dashboard/add-service"
+              className={({ isActive }) => {
+                return isActive ? "dashboard-active" : "dashboard-default";
+              }}
+            >
+              <div className="flex gap-2 items-center pl-5">
+                <TbBrowserPlus
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />{" "}
+                Add Service
+              </div>
+            </NavLink>
+          </li>
+          <li className="mb-4">
+            <NavLink
+              to="/dashboard/makeAdmin"
+              className={({ isActive }) => {
+                return isActive ? "dashboard-active" : "dashboard-default";
+              }}
+            >
+              <div className="flex gap-2 items-center pl-5">
+                <RiAdminFill
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />
+                Make Admin
+              </div>
+            </NavLink>
+          </li>
+          <li className="mb-4">
+            <NavLink
+              to="/dashboard/manage-services"
+              className={({ isActive }) => {
+                return isActive ? "dashboard-active" : "dashboard-default";
+              }}
+            >
+              <div className="flex gap-2 items-center pl-5">
+                <LiaVectorSquareSolid
+                  className={({ isActive }) => {
+                    return isActive ? "dashboard-active" : "dashboard-default";
+                  }}
+                />
+                Manage Services
+              </div>
+            </NavLink>
+          </li>
+           </> : 
+          <>
+            <li className="mb-2">
             <NavLink
               to="/dashboard/book"
               className={({ isActive }) => {
@@ -87,6 +163,7 @@ const Drawer = () => {
               </div>
             </NavLink>
           </li>
+          </>}
         </ul>
       </div>
     </div>

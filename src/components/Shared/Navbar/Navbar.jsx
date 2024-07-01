@@ -100,16 +100,6 @@ const Navbar = () => {
                 Contact Us
               </NavLink>
             </li>
-            <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
-              <NavLink
-                to="/test"
-                className={({ isActive }) => {
-                  return isActive ? "active" : "default";
-                }}
-              >
-                Test
-              </NavLink>
-            </li>
             {user && (
               <li className="cursor-pointer  px-6 py-2 text-whit ">
                 <NavLink
