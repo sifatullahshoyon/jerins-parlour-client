@@ -4,12 +4,15 @@ import { useForm } from "react-hook-form";
 import PrimaryBtn from "../../../components/Button/PrimaryBtn";
 import SocialLogin from "../../../components/Shared/SocialLogin/SocialLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Registration = () => {
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -34,18 +37,29 @@ const Registration = () => {
 
           updateUserProfile(fullName)
             .then(() => {
-              reset();
-              setLoading(false);
-              toast.success("User Create Successfully", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
+              // create user entry in the database
+              const userInfo = {
+                name: fullName,
+                email: email,
+              };
+              axiosPublic.post("/users", userInfo).then((res) => {
+                if (res.data.insertedId) {
+                  console.log("user added to the database");
+                  reset();
+                  setLoading(false);
+                  toast.success("User Create Successfully", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
+                  navigate("/");
+                }
               });
             })
             .catch((error) => {

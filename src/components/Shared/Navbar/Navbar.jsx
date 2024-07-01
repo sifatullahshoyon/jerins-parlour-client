@@ -57,7 +57,7 @@ const Navbar = () => {
       <Container>
         <nav className="flex  items-center justify-between  px-4 pt-10 pb-2 text-white">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110 pr-5">
-            <img src={logo} alt="logo" />
+            <Link to='/'><img src={logo} alt="logo" /></Link>
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
             <li>

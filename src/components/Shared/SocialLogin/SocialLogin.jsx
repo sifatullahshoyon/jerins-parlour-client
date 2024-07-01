@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../../../providers/AuthProviders";
+import { toast } from "react-toastify";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
+  const {googleSignIn , setLoading} = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+    .then((result) => {
+      console.log("🚀 ~ .then ~ result:", result.user)
+      
+      setLoading(false);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName
+      };
+      axiosPublic.post('/users', userInfo)
+      .then(res => {
+        console.log(res.data);
+        navigate('/');
+      })
+    })
+    .catch((error) => {
+      toast.error(error.message);
+    });
+  };
   return (
     <div>
       {/* Facebook Btn */}
@@ -31,7 +58,7 @@ const SocialLogin = () => {
       </div>
       {/* Google Btn */}
       <div>
-        <button className="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
+        <button onClick={handleGoogleSignIn} className="inline-flex items-center w-full border-[1px] border-[#ABABAB] rounded-full gap-20 py-2 px-1">
           <FcGoogle className="text-3xl" />
           <p className="text-text-dark text-base text-balance font-medium font-Poppins">
             Continue with Google

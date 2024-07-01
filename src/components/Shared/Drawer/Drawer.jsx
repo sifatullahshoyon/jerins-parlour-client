@@ -9,7 +9,10 @@ import { FaShoppingCart } from "react-icons/fa";
 
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  // TODO: get isAdmin value from the database
+  const isAdmin = true;
 
+  
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };

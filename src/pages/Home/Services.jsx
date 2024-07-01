@@ -34,7 +34,6 @@ const Services = ({ service, index }) => {
               toast.success(`${heading} add Your Cart`);
             }
           });
-        console.log("Response:", cartItem);
       } catch (error) {
         console.error("Error posting data:", error);
       }
