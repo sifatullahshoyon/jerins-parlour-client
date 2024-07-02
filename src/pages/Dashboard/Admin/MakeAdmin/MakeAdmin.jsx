@@ -7,6 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Loader from '../../../../components/Shared/Loader/Loader';
 import { FaTrashAlt } from 'react-icons/fa';
+import { FaUserShield } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 
 const MakeAdmin = () => {
@@ -21,13 +24,49 @@ const MakeAdmin = () => {
 
       const isLoading = false;
       const axiosSecure = useAxiosSecure();
-      const {data : users = []} = useQuery({
+      const {data : users = [] , refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users');
             return res.data;
         }
       });
+
+      const handleMakeAdmin = (user) => {
+        axiosSecure.patch(`/users/admin/${user?._id}`)
+        .then(res => {
+            if(res.data.modifiedCount > 0){
+                refetch();
+                toast.success(`${user?.name} is Admin Now.`);
+            }
+        })
+      };
+
+      const handleDeleteUser = (id) => {
+        console.log("🚀 ~ handleDeleteUser ~ id:", id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              axiosSecure.delete(`/users/${id}`).then((res) => {
+                if (res.data.deletedCount > 0) {
+                  refetch();
+                  Swal.fire({
+                    title: "Deleted!",
+                    text: "User has been deleted.",
+                    icon: "success",
+                  });
+                }
+              });
+            }
+          });
+      };
     return (
         <div>
             <Title title='All Users'/>
@@ -57,13 +96,13 @@ const MakeAdmin = () => {
                 <tr className="bg-[#f86da0] text-white">
                   <th className="py-4 px-6 text-lg text-left border-b">#</th>
                   <th className="py-4 px-6 text-lg text-left border-b">
-                    Product Image
+                    Name
                   </th>
                   <th className="py-4 px-6 text-lg text-left border-b">
-                    {users?.displayName}
+                    Email
                   </th>
                   <th className="py-4 px-6 text-lg text-left border-b">
-                    Price
+                    Role
                   </th>
                   <th className="py-4 px-6 text-lg border-b text-end">
                     Action
@@ -74,30 +113,29 @@ const MakeAdmin = () => {
                 {isLoading ? (
                   <Loader />
                 ) : (
-                  users?.map((item, index) => (
+                  users?.map((user, index) => (
                     <tr
-                      key={item._id}
+                      key={user._id}
                       className="hover:bg-gray-50 border-b transition duration-300"
                     >
                       <td className="py-4 px-4 mx-auto">{index + 1}</td>
                       <td className="py-4 px-4 flex">
-                        <img
-                          src={
-                            item?.img_link ? item?.img_link : "Img Not Found"
-                          }
-                          alt="item img"
-                          className="h-16 w-16 object-cover "
-                        />
+                        {user?.name ? user?.name : "Data Not Found"}
                       </td>
                       <td className="py-4 px-6 border-b text-xl font-medium">
-                        {item?.displayName ? item?.displayName : "Data Not Found"}
+                        {user?.email ? user?.email : "Data Not Found"}
                       </td>
                       <td className="py-4 px-6 border-b text-lg font-medium">
-                        ${item?.price ? item?.price : 0}
+                      {user.role === "admin" ? "Admin" : <button
+                          onClick={() => handleMakeAdmin(user)}
+                          className="bg-primary-color scale-100 transition-all duration-100 text-white p-3 rounded-full"
+                        >
+                          <FaUserShield />
+                        </button>}
                       </td>
                       <td className="py-4 px-6 border-b text-end">
                         <button
-                          onClick={() => handleItemDelete(item?._id)}
+                          onClick={() => handleDeleteUser(user?._id)}
                           className="bg-rose-500  scale-100 transition-all duration-100 text-white p-3 rounded-full"
                         >
                           <FaTrashAlt />
