@@ -13,12 +13,14 @@ import OrderList from "../pages/Dashboard/Admin/OrderList/OrderList";
 import AddServices from "../pages/Dashboard/Admin/AddServices/AddServices";
 import MakeAdmin from "../pages/Dashboard/Admin/MakeAdmin/MakeAdmin";
 import ManageServices from "../pages/Dashboard/Admin/ManageServices/ManageServices";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import ErrorElement from "../components/ErrorElement";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: "error",
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "/",
@@ -61,19 +63,35 @@ export const router = createBrowserRouter([
       // Admin Routes:
       {
         path: "/dashboard/orderList",
-        element: <OrderList />,
+        element: (
+          <AdminRoute>
+            <OrderList />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/add-service",
-        element: <AddServices />,
+        element: (
+          <AdminRoute>
+            <AddServices />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/makeAdmin",
-        element: <MakeAdmin />,
+        element: (
+          <AdminRoute>
+            <MakeAdmin />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-services",
-        element: <ManageServices />,
+        element: (
+          <AdminRoute>
+            <ManageServices />
+          </AdminRoute>
+        ),
       },
     ],
   },

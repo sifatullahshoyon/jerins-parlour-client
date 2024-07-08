@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import logo from "../../../assets/images/logo/logo.png";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, Navigate, useLocation } from "react-router-dom";
 import Container from "../Container";
 import { AuthContext } from "../../../providers/AuthProviders";
 import { Bounce, toast } from "react-toastify";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const [dropDownState, setDropDownState] = useState(false);
   const dropDownMenuRef = useRef();
   const location = useLocation();
   const { logOut, user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const isNavbar =
     location?.pathname?.includes("/login") ||
     location?.pathname?.includes("/registration");
@@ -57,7 +59,9 @@ const Navbar = () => {
       <Container>
         <nav className="flex  items-center justify-between  px-4 pt-10 pb-2 text-white">
           <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110 pr-5">
-            <Link to='/'><img src={logo} alt="logo" /></Link>
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
           <ul className="hidden items-center justify-between gap-10 md:flex">
             <li>
@@ -100,18 +104,30 @@ const Navbar = () => {
                 Contact Us
               </NavLink>
             </li>
-            {user && (
-              <li className="cursor-pointer  px-6 py-2 text-whit ">
-                <NavLink
-                  to="/dashboard/book"
-                  className={({ isActive }) => {
-                    return isActive ? "active" : "default";
-                  }}
-                >
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
+            {user &&
+              (isAdmin ? (
+                <li className="cursor-pointer  px-6 py-2 text-whit ">
+                  <NavLink
+                    to="/dashboard/makeAdmin"
+                    className={({ isActive }) => {
+                      return isActive ? "active" : "default";
+                    }}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              ) : (
+                <li className="cursor-pointer  px-6 py-2 text-whit ">
+                  <NavLink
+                    to="/dashboard/book"
+                    className={({ isActive }) => {
+                      return isActive ? "active" : "default";
+                    }}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              ))}
             <li>
               {user ? (
                 <button
@@ -127,7 +143,7 @@ const Navbar = () => {
               )}
             </li>
           </ul>
-       {/* Mobile */}
+          {/* Mobile */}
           <div
             ref={dropDownMenuRef}
             onClick={() => setDropDownState(!dropDownState)}
@@ -193,18 +209,30 @@ const Navbar = () => {
                     Contact Us
                   </NavLink>
                 </li>
-                {user && (
-                  <li className="cursor-pointer  px-6 py-2 text-white hover:bg-sky-600 ">
-                    <NavLink
-                      to="/dashboard/book"
-                      className={({ isActive }) => {
-                        return isActive ? "active" : "default";
-                      }}
-                    >
-                      Dashboard
-                    </NavLink>
-                  </li>
-                )}
+                {user &&
+                  (isAdmin ? (
+                    <li className="cursor-pointer  px-6 py-2 text-whit ">
+                      <NavLink
+                        to="/dashboard/makeAdmin"
+                        className={({ isActive }) => {
+                          return isActive ? "active" : "default";
+                        }}
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                  ) : (
+                    <li className="cursor-pointer  px-6 py-2 text-whit ">
+                      <NavLink
+                        to="/dashboard/book"
+                        className={({ isActive }) => {
+                          return isActive ? "active" : "default";
+                        }}
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                  ))}
                 <li>
                   {user ? (
                     <button

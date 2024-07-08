@@ -10,6 +10,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -18,10 +19,11 @@ const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   const googleSignIn = () => {
     setLoading(true);
-    return signInWithPopup(auth , googleProvider);
+    return signInWithPopup(auth, googleProvider);
   };
 
   const createUser = (email, password) => {
@@ -42,20 +44,37 @@ const AuthProviders = ({ children }) => {
     });
   };
 
-  const logOut = () => {
+  const logOut = async () => {
     setLoading(true);
-    return signOut(auth);
+    return signOut(auth).finally(() => {
+      setLoading(false); // Ensure loading is set to false after logout
+    });
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Get token & store it on the client side
+        const userInfo = { email: currentUser.email };
+        try {
+          const res = await axiosPublic.post("/jwt", userInfo);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        } catch (error) {
+          console.error("Error fetching JWT token:", error);
+        }
+      } else {
+        // Remove the token if the user is not authenticated
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const authInfo = {
     user,
@@ -65,7 +84,7 @@ const AuthProviders = ({ children }) => {
     signIn,
     updateUserProfile,
     logOut,
-    googleSignIn
+    googleSignIn,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
