@@ -3,6 +3,10 @@ import { AuthContext } from '../../../../providers/AuthProviders';
 import Title from '../../../../components/Title';
 import PrimaryBtn from '../../../../components/Button/PrimaryBtn';
 import { useForm } from 'react-hook-form';
+import {loadStripe} from '@stripe/stripe-js';
+
+
+const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
 
 const Book = () => {
     const {user} = useContext(AuthContext);

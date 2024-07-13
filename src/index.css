@@ -42,3 +42,8 @@ textarea::placeholder {
   color: #000000;
   font-weight: 500;
 }
+
+input::placeholder,
+textarea::placeholder {
+  font-weight: 400;
+}

@@ -15,6 +15,8 @@ import MakeAdmin from "../pages/Dashboard/Admin/MakeAdmin/MakeAdmin";
 import ManageServices from "../pages/Dashboard/Admin/ManageServices/ManageServices";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import ErrorElement from "../components/ErrorElement";
+import UpdateItem from "../pages/Dashboard/Admin/UpdateItem/UpdateItem";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/review",
         element: <Review />,
       },
+      {
+        path: "/dashboard/payment",
+        element: <Payment />,
+      },
       // Admin Routes:
       {
         path: "/dashboard/orderList",
@@ -71,7 +77,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-service",
-        element: (
+        element: (  
           <AdminRoute>
             <AddServices />
           </AdminRoute>
@@ -92,6 +98,15 @@ export const router = createBrowserRouter([
             <ManageServices />
           </AdminRoute>
         ),
+      },
+      {
+        path: "/dashboard/updateItem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem />
+          </AdminRoute>
+        ),
+        loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
       },
     ],
   },

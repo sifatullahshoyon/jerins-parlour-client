@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PrimaryBtn from "../../../components/Button/PrimaryBtn";
 import Container from "../../../components/Shared/Container";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import Services from "../Services";
+import useServices from "../../../hooks/useServices";
 
 const Service = () => {
-  const [serviceData, setServiceData] = useState([]);
-  const axiosSecure = useAxiosSecure();
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const res = await axiosSecure.get("/services");
-        setServiceData(res.data);
-      } catch (error) {
-        toast.error(error.message);
-      }
-    };
+  const [services, refetch , isPending] = useServices();
+  const [showAll, setShowAll] = useState(false); // State to track whether to show all services
+ 
+ const handleToggleShow = () => {
+    setShowAll(!showAll); // Toggle between showing all services and showing only 3
+  };
 
-    fetchServices();
-  }, [axiosSecure]);
   return (
     <section className="py-20">
       <Container>
@@ -27,12 +20,14 @@ const Service = () => {
           Our Awesome <span className="text-primary-color">Services</span>
         </h1>
         <div className="md:flex md:flex-row justify-center gap-20 space-y-4 flex-wrap">
-          {serviceData?.map((data, index) => (
+          {services?.slice(0, showAll ? services.length : 3).map((data, index) => (
             <Services key={data._id} service={data} index={index} />
           ))}
         </div>
-        <div className="text-center pt-10">
-          <PrimaryBtn width="w-[170px]">Explore more</PrimaryBtn>
+        <div onClick={handleToggleShow} className="text-center pt-20">
+          <PrimaryBtn width="w-[170px]">
+            {showAll ? "Show Less" : "Explore More"}
+          </PrimaryBtn>
         </div>
       </Container>
     </section>

@@ -11,9 +11,12 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import { useLoaderData } from "react-router-dom";
 
-const AddServices = () => {
-  const { user } = useContext(AuthContext);
+const UpdateItem = () => {
+    const data = useLoaderData();
+    console.log(data);
+    const { user } = useContext(AuthContext);
   const [showName, setShowName] = useState({});
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -58,12 +61,12 @@ const AddServices = () => {
     }
 
   };
-  return (
-    <div>
+    return (
+        <div>
       <Title title="Add service" />
       <div className="flex flex-row flex-wrap justify-between items-center p-4">
         <p className="font-Poppins font-semibold text-xl text-text-dark">
-          Add Services
+          Updated Services
         </p>
         <p className="font-Poppins font-semibold text-xl text-text-dark">
           {user?.displayName}
@@ -162,7 +165,7 @@ const AddServices = () => {
         </form>
       </div>
     </div>
-  );
+    );
 };
 
-export default AddServices;
+export default UpdateItem;

@@ -7,6 +7,7 @@ import Loader from "../../../../components/Shared/Loader/Loader";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const BookingList = () => {
   const { user } = useContext(AuthContext);
@@ -60,7 +61,9 @@ const BookingList = () => {
           <h2 className="text-xl font-bold font-Poppins text-text-dark">
             Total Price: ${totalItems ? totalItems : 0}
           </h2>
-          <PrimaryBtn width="w-[100px]">Pay</PrimaryBtn>
+          {
+            cart.length ? <Link to='/dashboard/book'><PrimaryBtn width="w-[100px]">Pay</PrimaryBtn></Link> : <button disabled className="bg-primary-color">Pay</button>
+          }
         </div>
         <div>
           <div className="overflow-x-auto">

@@ -17,7 +17,7 @@ const Header = () => {
               Purus commodo ipsum duis <br /> laoreet maecenas. Feugiat{" "}
             </p>
             <PrimaryBtn width="lg:w-[230px] md:w-[200px] sm:w-[150px]">
-              Get an Appoin tment
+              Get an Appointment
             </PrimaryBtn>
           </div>
           <div className="lg:pr-80">
