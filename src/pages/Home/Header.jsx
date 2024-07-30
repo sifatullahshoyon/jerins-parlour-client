@@ -8,7 +8,7 @@ const Header = () => {
     <header className="bg-secondary-color pt-28 pb-8">
       <Container>
         <div className="lg:flex items-center justify-between gap-6 space-y-6">
-          <div className="ml-10">
+          <div data-aos="fade-right" className="ml-10">
             <h1 className="font-bold font-Poppins sm:text-2xl md:text-3xl lg:text-5xl leading-tight tracking-wide text-balance">
               BEAUTY SALON <br /> FOR EVERY WOMEN
             </h1>
@@ -20,7 +20,7 @@ const Header = () => {
               Get an Appointment
             </PrimaryBtn>
           </div>
-          <div className="lg:pr-80">
+          <div data-aos="fade-left" className="lg:pr-80">
             <img src={modelPic} alt="model picture" className="object-cover" />
           </div>
         </div>

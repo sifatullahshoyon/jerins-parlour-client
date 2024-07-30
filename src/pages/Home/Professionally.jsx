@@ -9,11 +9,11 @@ const Professionally = () => {
       <Container>
         <div className="md:flex md:flex-row flex-wrap gap-20 space-y-10 items-center justify-center">
           {/* Img */}
-          <div>
+          <div data-aos="fade-right">
             <img src={model2} className="object-cover" alt="model picture" />
           </div>
           {/* Content */}
-          <div className="font-Poppins lg:mr-72">
+          <div data-aos="fade-left" className="font-Poppins lg:mr-72">
             <h1 className="text-4xl font-semibold tracking-wide text-balance leading-tight pb-5">
               Let us handle your <br /> screen{" "}
               <span className="text-primary-color text-balance">

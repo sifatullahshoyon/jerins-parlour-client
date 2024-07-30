@@ -40,7 +40,7 @@ const Drawer = () => {
         <Link to="/">
           <img src={logo} alt="logo" className="mb-12" />
         </Link>
-        <ul>
+        <ul data-aos="fade-down">
           {isAdmin ? (
             <>
               <li className="mb-4">

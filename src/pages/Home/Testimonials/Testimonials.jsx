@@ -27,6 +27,7 @@ const Testimonials = () => {
           }}
           modules={[Pagination]}
           className="mySwiper"
+          data-aos="fade-right"
         >
           <SwiperSlide className="pb-8">
             <div className="md:flex justify-around flex-wrap">

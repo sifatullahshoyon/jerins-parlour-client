@@ -19,7 +19,7 @@ const Service = () => {
         <h1 className="text-center font-Poppins font-bold text-3xl pt-10 py-20 text-balance text-text-color">
           Our Awesome <span className="text-primary-color">Services</span>
         </h1>
-        <div className="md:flex md:flex-row justify-center gap-20 space-y-4 flex-wrap">
+        <div data-aos="fade-up" className="md:flex md:flex-row justify-center gap-20 space-y-4 flex-wrap">
           {services?.slice(0, showAll ? services.length : 3).map((data, index) => (
             <Services key={data._id} service={data} index={index} />
           ))}

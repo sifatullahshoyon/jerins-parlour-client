@@ -11,7 +11,7 @@ const ContactUs = () => {
     <section className={`bg-secondary-color ${isLogin ? "pt-28 pb-8" : ""}`}>
       <Title title="Contact Us" />
       <Container>
-        <div className="flex flex-col justify-center pt-20 pb-5">
+        <div data-aos="fade-left" className="flex flex-col justify-center pt-20 pb-5">
           <h1 className="text-balance sm:xl lg:text-4xl md:3xl leading-snug tracking-wide font-bold font-Poppins text-text-color text-center">
             Let us handle your <br />
             project, professionally.

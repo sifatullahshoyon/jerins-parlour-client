@@ -16,8 +16,8 @@
 * React Router Dom , Node Js , Express JS , React JS , MongoDb , tailwindcss .
 
 ##### Tools:
-* navigateUI , firebase ,  tanstack/react-query , aos - animate library , axios,firebase , jwt , react-helmet-async .
+* navigateUI , firebase ,  tanstack/react-query , aos - animate library , axios,firebase , jwt , react-helmet-async, react-spinners, swiper js , react-hook-form .
 
 ## Live Link:
-Hosted in Firebase -> [Jerin's Parlour]()
+Hosted in Firebase -> [Jerin's Parlour](https://jerins-parlour-dfbd0.web.app/)
 
