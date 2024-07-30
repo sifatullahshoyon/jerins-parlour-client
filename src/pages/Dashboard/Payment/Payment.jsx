@@ -15,7 +15,7 @@ const Payment = () => {
   const price = total;
   return (
     <div>
-      <Title title="Booking List" />
+      <Title title="Payment" />
       <div className="flex flex-row flex-wrap justify-between items-center p-4">
         <p className="font-Poppins font-semibold text-xl text-text-dark">
           Payment
@@ -28,7 +28,7 @@ const Payment = () => {
       <div className="min-h-screen bg-[#F4F7FC] w-full p-5">
         <div className=" min-h-screen mx-auto">
           <Elements stripe={stripePromise}>
-            <CheckoutForm price={price}></CheckoutForm>
+            <CheckoutForm cart={cart} price={price}></CheckoutForm>
           </Elements>
         </div>
       </div>

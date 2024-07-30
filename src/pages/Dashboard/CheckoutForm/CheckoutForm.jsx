@@ -1,26 +1,28 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
-import './CheckoutForm.css';
+import "./CheckoutForm.css";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
-const CheckoutForm = ({price}) => {  
+const CheckoutForm = ({ cart, price }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(AuthContext);
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
-  const [processing , setProcessing] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axiosSecure.post('/create-payment-intent' , {price})
-    .then(res => {
-      console.log(res.data.clientSecret);
-      setClientSecret(res.data.clientSecret);
-    })
-  },[price]);
+    if (price > 0) {
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        // console.log(res.data.clientSecret);
+        setClientSecret(res.data.clientSecret);
+      });
+    }
+  }, [price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +32,7 @@ const CheckoutForm = ({price}) => {
     }
 
     const card = elements.getElement(CardElement);
-    
+
     if (card === null) {
       return;
     }
@@ -69,6 +71,24 @@ const CheckoutForm = ({price}) => {
       setProcessing(false);
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
+        // save payment information to the server
+        const paymentInfo = {
+          email: user?.email,
+          transactionId: paymentIntent.id,
+          price,
+          data: new Date(),
+          quantity: cart.length,
+          cartItemsId: cart.map((item) => item._id),
+          servicesItemsId: cart.map((item) => item.serviceId),
+          status: "Service Pending",
+          itemNames: cart.map((item) => item.heading),
+        };
+        axiosSecure.post("/payments", paymentInfo).then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            toast.success("Disply success");
+          }
+        });
       }
     }
   };
@@ -96,7 +116,7 @@ const CheckoutForm = ({price}) => {
           mt="5"
           type="submit"
           disabled={!stripe || !clientSecret || processing}
-         className="payment-button"
+          className="payment-button"
         >
           Pay
         </button>
