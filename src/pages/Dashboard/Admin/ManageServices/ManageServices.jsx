@@ -38,32 +38,73 @@ const ManageServices = () => {
   console.log("🚀 ~ ManageServices ~ services:38", services)
 
   const handleEditItem = (services) => {
-    console.log("🚀 ~ handleEditItem ~ services:", services);
+    console.log("🚀 ~ handleEditItem ~ services:", services._id);
     
   };
 
   const handleDeleteItem = (services) => {
+    // Swal.fire({
+    //   title: "Are you sure?",
+    //   text: "You won't delete this!",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "Yes, delete it!",
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     axiosSecure.delete(`/services/${services._id}`).then((res) => {
+            
+    //       console.log("🚀 ~ axiosSecure.delete ~ res:", res)
+    //       if (res.data.deletedCount > 0) {
+    //         refetch();
+    //         Swal.fire({
+    //           title: "Deleted!",
+    //           text: "Item has been deleted.",
+    //           icon: "success",
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
+
+    // Swal.fire({
+    //   title: "Are you sure?",
+    //   text: "You won't be able to revert this!",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "Yes, delete it!",
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     axiosSecure.delete(`/services/${services._id}`).then((res) => {
+    //       if (res.data.deletedCount > 0) {
+    //         refetch();
+    //         Swal.fire({
+    //           title: "Deleted!",
+    //           text: "User has been deleted.",
+    //           icon: "success",
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
+
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't delete this!",
+      text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/services/${services._id}`).then((res) => {
-            
-          console.log("🚀 ~ axiosSecure.delete ~ res:", res)
-          if (res.data.deletedCount > 0) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Item has been deleted.",
-              icon: "success",
-            });
-          }
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
         });
       }
     });
@@ -117,7 +158,7 @@ const ManageServices = () => {
                     </td>
                     <td className="py-4 px-6 border-b">
                          {/* Todo: services update button work */}
-                      {services?.map(service => <div>{
+                       <div>{
                         <Link to={`/dashboard/updateItem/${service._id}`}>
                         <button
                           onClick={() => handleEditItem(services)}
@@ -126,12 +167,12 @@ const ManageServices = () => {
                           <FaEdit />
                         </button>
                         </Link>                        
-                        }</div>)}
+                        }</div>
                     </td>
                     {/* Todo: Services Delete Work */}
                     <td className="py-4 px-6 border-b text-end">
                       <button
-                        onClick={() => handleDeleteItem(services)}
+                        onClick={() => handleDeleteItem (services)}
                         className="bg-rose-500  scale-100 transition-all duration-100 text-white p-3 rounded-full"
                       >
                         <FaTrashAlt />

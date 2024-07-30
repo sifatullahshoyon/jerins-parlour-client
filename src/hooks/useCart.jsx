@@ -24,7 +24,7 @@ const useCart = () => {
 
   if (error) return console.error(error.message || error);
 
-  // return { isLoading, error, cart };
+  
   return [isLoading, error, refetch, cart];
 };
 

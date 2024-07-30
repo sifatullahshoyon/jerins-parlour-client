@@ -13,7 +13,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useLoaderData } from "react-router-dom";
 
-const UpdateItem = () => {
+const UpdateItem = ({services}) => {
     const data = useLoaderData();
     console.log(data);
     const { user } = useContext(AuthContext);
@@ -91,6 +91,7 @@ const UpdateItem = () => {
                 className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none"
                 type="text"
                 placeholder="Enter title"
+                defaultValue={data.heading}
                 required
               />
             </div>
@@ -131,6 +132,7 @@ const UpdateItem = () => {
                 className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none"
                 type="text"
                 placeholder="$ Price"
+                defaultValue={data.price}
                 required
               />
             </div>
@@ -159,7 +161,7 @@ const UpdateItem = () => {
           <div className="flex flex-row flex-wrap items-center gap-5 my-8">
             {/* First row */}
             <div className="flex flex-col space-y-2">
-              <PrimaryBtn width="w-[108px]">Submit</PrimaryBtn>
+              <PrimaryBtn width="w-[130px]">Update Item</PrimaryBtn>
             </div>
           </div>
         </form>

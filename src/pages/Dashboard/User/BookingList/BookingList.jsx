@@ -62,7 +62,7 @@ const BookingList = () => {
             Total Price: ${totalItems ? totalItems : 0}
           </h2>
           {
-            cart.length ? <Link to='/dashboard/book'><PrimaryBtn width="w-[100px]">Pay</PrimaryBtn></Link> : <button disabled className="bg-primary-color">Pay</button>
+            cart.length ? <Link to='/dashboard/payment'><PrimaryBtn width="w-[100px]">Pay</PrimaryBtn></Link> : <button disabled className="bg-primary-color">Pay</button>
           }
         </div>
         <div>
