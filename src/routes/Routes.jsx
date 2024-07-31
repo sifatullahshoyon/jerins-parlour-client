@@ -106,7 +106,7 @@ export const router = createBrowserRouter([
             <UpdateItem />
           </AdminRoute>
         ),
-        loader: ({params}) => fetch(`https://jerins-parlour-server-sooty.vercel.app/services/${params.id}`)
+        loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
       },
     ],
   },

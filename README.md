@@ -2,7 +2,7 @@
 
 ##### Below are the details of this website:-
 
-* Jerin's Parlour is beauty salon Website
+* Jerin's Parlour is a full-stack women beauty salon Website
 * There is one navbar one footer login, registration, Contact page on this website.
 * There is a user dashboard . 
 * There is a Admin dashboard . AN Admin can add a user admin or Instructors . Remove admin or Instructors . An admin can added services , edit & deleted services

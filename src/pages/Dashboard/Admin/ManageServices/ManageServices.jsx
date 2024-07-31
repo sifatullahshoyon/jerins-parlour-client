@@ -35,14 +35,14 @@ const ManageServices = () => {
 //   });
 
   const [services, refetch] = useServices();
-  console.log("🚀 ~ ManageServices ~ services:38", services)
+  
 
   const handleEditItem = (services) => {
     console.log("🚀 ~ handleEditItem ~ services:", services._id);
     
   };
 
-  const handleDeleteItem = (services) => {
+  const handleDeleteItem = (id) => {
     // Swal.fire({
     //   title: "Are you sure?",
     //   text: "You won't delete this!",
@@ -68,29 +68,6 @@ const ManageServices = () => {
     //   }
     // });
 
-    // Swal.fire({
-    //   title: "Are you sure?",
-    //   text: "You won't be able to revert this!",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#3085d6",
-    //   cancelButtonColor: "#d33",
-    //   confirmButtonText: "Yes, delete it!",
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     axiosSecure.delete(`/services/${services._id}`).then((res) => {
-    //       if (res.data.deletedCount > 0) {
-    //         refetch();
-    //         Swal.fire({
-    //           title: "Deleted!",
-    //           text: "User has been deleted.",
-    //           icon: "success",
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -98,16 +75,23 @@ const ManageServices = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
+        axiosSecure.delete(`/services/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success",
+            });
+          }
         });
       }
     });
+
+    
   };
     return (
         <div>
@@ -172,7 +156,7 @@ const ManageServices = () => {
                     {/* Todo: Services Delete Work */}
                     <td className="py-4 px-6 border-b text-end">
                       <button
-                        onClick={() => handleDeleteItem (services)}
+                        onClick={() => handleDeleteItem (services._id)}
                         className="bg-rose-500  scale-100 transition-all duration-100 text-white p-3 rounded-full"
                       >
                         <FaTrashAlt />

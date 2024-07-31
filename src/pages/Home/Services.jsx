@@ -4,14 +4,15 @@ import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useAdmin from "../../hooks/useAdmin";
 
-
-const Services = ({ service, index }) => {
+const Services = ({ service, index, refetch }) => {
   const { _id, heading, img_link, price, description } = service;
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const isAdmin = useAdmin();
   // Determine the CSS classes to apply
   const cardClasses = `w-[370px] flex flex-col justify-center items-center font-Poppins py-5 mx-auto ${
     index === 1 ? "shadow-lg" : ""
@@ -57,51 +58,28 @@ const Services = ({ service, index }) => {
   };
 
   const handleDeleteCart = async (id) => {
-    console.log("🚀 ~ handleDeleteCart ~ id:", id)
-    
-    // if (user && user?.email) {
-    //   try {
-    //     Swal.fire({
-    //       title: "Are you sure?",
-    //       text: "You won't be able to revert this!",
-    //       icon: "warning",
-    //       showCancelButton: true,
-    //       confirmButtonColor: "#3085d6",
-    //       cancelButtonColor: "#d33",
-    //       confirmButtonText: "Yes, delete it!",
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         axiosSecure.delete(`/services/${id}`).then((res) => {
-    //           if (res.data.deletedCount > 0) {
-    //             // refetch();
-    //             Swal.fire({
-    //               title: "Deleted!",
-    //               text: "Item has been deleted.",
-    //               icon: "success",
-    //             });
-    //           }
-    //         });
-    //       }
-    //     });
-    //   } catch (error) {
-    //     console.error("Error posting data:", error);
-    //   }
-    // } else {
-    //   Swal.fire({
-    //     title: "You are Not Logged In",
-    //     text: "Please login to add to the cart?",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Log In",
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       // Send The User Login Page.
-    //       navigate("/login", { state: { from: location } });
-    //     }
-    //   });
-    // }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't delete this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/services/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Item has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -123,12 +101,14 @@ const Services = ({ service, index }) => {
         >
           Add to Cart
         </button>
-        <button
-          onClick={() => handleDeleteCart(service._id)}
-          className="absolute bottom-4 ml-5 bg-rose-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity group-hover:duration-500 duration-300 ease-in-out"
-        >
-          Delete
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => handleDeleteCart(service._id)}
+            className="absolute bottom-4 ml-5 bg-rose-500 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity group-hover:duration-500 duration-300 ease-in-out"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );
