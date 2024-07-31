@@ -17,6 +17,8 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import ErrorElement from "../components/ErrorElement";
 import UpdateItem from "../pages/Dashboard/Admin/UpdateItem/UpdateItem";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import Portfolio from "../pages/Home/Portfolio/Portfolio";
+import OurTeam from "../pages/Home/OurTeam/OurTeam";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "our-portfolio",
+        element: <Portfolio />,
+      },
+      {
+        path: "our-team",
+        element: <OurTeam />,
       },
       {
         path: "contact-us",
@@ -77,7 +87,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-service",
-        element: (  
+        element: (
           <AdminRoute>
             <AddServices />
           </AdminRoute>
@@ -106,7 +116,8 @@ export const router = createBrowserRouter([
             <UpdateItem />
           </AdminRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`https://jerins-parlour-server-sooty.vercel.app/services/${params.id}`),
       },
     ],
   },

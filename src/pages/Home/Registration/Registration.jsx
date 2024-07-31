@@ -30,6 +30,24 @@ const Registration = () => {
     const password = data?.password;
     const passwordConfirmation = data?.confirmPassword;
 
+    // Password Validation:-
+    if (/^\s*$/.test(password)) {
+      toast.error("Password cannot contain white spaces.");
+      return;
+    } else if (password !== passwordConfirmation) {
+      toast.error("Password and confirm password do not match.");
+      return;
+    } else if (password.trim().length < 6) {
+      toast.error("Password should be at least 6 characters long.");
+      return;
+    } else if (!/(?=.*?[0-9])/.test(password)) {
+      toast.error("Password should contain at least one digit.");
+      return;
+    } else if (!/(?=.*?[A-Z])/.test(password)) {
+      toast.error("Please Enter Min 1 uppercase letter.");
+      return;
+    }
+
     try {
       createUser(email, password)
         .then((result) => {
@@ -44,7 +62,7 @@ const Registration = () => {
               };
               axiosPublic.post("/users", userInfo).then((res) => {
                 if (res.data.insertedId) {
-                  console.log("user added to the database");
+                  // user added to the database
                   reset();
                   setLoading(false);
                   toast.success("User Create Successfully", {
