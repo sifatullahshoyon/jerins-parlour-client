@@ -61,9 +61,13 @@ const BookingList = () => {
           <h2 className="text-xl font-bold font-Poppins text-text-dark">
             Total Price: ${totalItems ? totalItems : 0}
           </h2>
-          {
-            cart.length ? <Link to='/dashboard/payment'><PrimaryBtn width="w-[100px]">Pay</PrimaryBtn></Link> : <button  className="bg-primary-color"></button>
-          }
+          {cart.length ? (
+            <Link to="/dashboard/payment">
+              <PrimaryBtn width="w-[100px]">Pay</PrimaryBtn>
+            </Link>
+          ) : (
+            <button className="bg-primary-color"></button>
+          )}
         </div>
         <div>
           <div className="overflow-x-auto">

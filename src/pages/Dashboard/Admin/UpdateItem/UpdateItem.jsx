@@ -1,26 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Title from "../../../../components/Title";
 import PrimaryBtn from "../../../../components/Button/PrimaryBtn";
 import { AuthContext } from "../../../../providers/AuthProviders";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaUserShield } from "react-icons/fa6";
-import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useLoaderData } from "react-router-dom";
 
-const UpdateItem = ({services}) => {
-    const data = useLoaderData();
-    console.log(data);
-    const { user } = useContext(AuthContext);
-  const [showName, setShowName] = useState({});
-  const axiosPublic = useAxiosPublic();
+const UpdateItem = () => {
+  const singleServicesData = useLoaderData();
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-   const {
+  const {
     register,
     handleSubmit,
     watch,
@@ -28,7 +20,7 @@ const UpdateItem = ({services}) => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     // const formData = new FormData();
     // formData.append('image', data.image[0]);
     // try {
@@ -43,26 +35,29 @@ const UpdateItem = ({services}) => {
     //   console.error('Error uploading image', error);
     // }
 
-    try {
-        const cartItem = {
-            heading : data.serviceTitle,
-            description: data.Description,
-            price : parseFloat(data.price)
-        };
-        const servicesItem = await axiosSecure.post('/services' , cartItem)
-        console.log(servicesItem.data)
-        if(servicesItem.data.insertedId){
-            reset();
-            toast.success("Services Added.")
-        }
-        
-    } catch (error) {
-        console.error(error);
-    }
+    const cartItem = {
+      heading: data.serviceTitle,
+      description: data.Description,
+      price: parseFloat(data.price),
+    };
 
+    try {
+      const servicesItem = await axiosSecure.patch(
+        `/services/${singleServicesData._id}`,
+        cartItem
+      );
+      console.log(servicesItem.data);
+      if (servicesItem.data.modifiedCount > 0) {
+        reset();
+        toast.success("Service Updated.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-    return (
-        <div>
+
+  return (
+    <div>
       <Title title="Add service" />
       <div className="flex flex-row flex-wrap justify-between items-center p-4">
         <p className="font-Poppins font-semibold text-xl text-text-dark">
@@ -91,7 +86,7 @@ const UpdateItem = ({services}) => {
                 className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none"
                 type="text"
                 placeholder="Enter title"
-                defaultValue={data.heading}
+                defaultValue={singleServicesData.heading}
                 required
               />
             </div>
@@ -132,7 +127,7 @@ const UpdateItem = ({services}) => {
                 className="rounded-lg bg-white sm:w-2/3 md:w-[570px] px-2 py-3 text-text-gray focus:outline-none"
                 type="text"
                 placeholder="$ Price"
-                defaultValue={data.price}
+                defaultValue={singleServicesData.price}
                 required
               />
             </div>
@@ -167,7 +162,7 @@ const UpdateItem = ({services}) => {
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default UpdateItem;
